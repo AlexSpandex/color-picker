@@ -1,23 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState} from "react"
+import "./App.css"
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+  const getColor = localStorage.getItem('color');
+  const [color, setColor] = useState(getColor ? getColor : "orange");
+
+
+  const COLOR = [
+    "#F7F9F9", 
+    "#BED8D4",
+    "#78D5D7",
+    "#63D2FF",
+    "#2081C3"
+  ]
+
+  const changeColor = () => {
+    let randNum =  Math.floor(Math.random() * COLOR.length);
+   console.log(randNum)
+   let color = COLOR[randNum];
+
+   localStorage.setItem('color', color);
+   setColor(color);
+  }
+
+  return(
+    <div className="container" style={{ backgroundColor: color }}>
+      <div className="main">
+        <div className="bg-color">
+          <h1> Background Color: {color} </h1>
+          
+    </div>
+    <div className="button" onClick= {() => changeColor()}> Click me </div>
+    </div>
     </div>
   );
 }
